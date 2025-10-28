@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 export function ImageDisplay({ image }: { image: string | null }) {
+  const MAX_SCREEN_PERCENTAGE = 0.8;
 
   useEffect(() => {
     const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
@@ -10,9 +11,34 @@ export function ImageDisplay({ image }: { image: string | null }) {
       img.src = image;
       img.onload = () => {
         if (ctx) {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
+          const displayWidth = window.innerWidth;
+          const displayHeight = window.innerHeight;
+
+          const imageWidth = img.naturalWidth;
+          const imageHeight = img.naturalHeight;
+
+          const maxDrawWidth = displayWidth * MAX_SCREEN_PERCENTAGE;
+          const maxDrawHeight = displayHeight * MAX_SCREEN_PERCENTAGE;
+
+          let drawWidth, drawHeight;
+          let scale;
+
+          if (imageWidth <= maxDrawWidth && imageHeight <= maxDrawHeight) {
+            drawWidth = imageWidth;
+            drawHeight = imageHeight;
+          } else {
+            const widthRatio = maxDrawWidth / imageWidth;
+            const heightRatio = maxDrawHeight / imageHeight;
+
+            scale = Math.min(widthRatio, heightRatio);
+
+            drawWidth = imageWidth * scale;
+            drawHeight = imageHeight * scale;
+          }
+          canvas.width = drawWidth;
+          canvas.height = drawHeight
+
+          ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
         }
       };
     }
