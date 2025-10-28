@@ -38,6 +38,7 @@ export function ImageDisplay({ image }: { image: string | null }) {
           canvas.width = drawWidth;
           canvas.height = drawHeight
 
+          ctx.clearRect(0, 0, drawWidth, drawHeight);
           ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
         }
       };
