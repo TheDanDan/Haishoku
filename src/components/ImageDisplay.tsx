@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
+import { Button } from "@/components/ui/button"
 export function ImageDisplay({ image }: { image: string | null }) {
   const MAX_SCREEN_PERCENTAGE = 0.8;
-
+  const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
   useEffect(() => {
     const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
@@ -45,9 +46,26 @@ export function ImageDisplay({ image }: { image: string | null }) {
     }
   }, [image]);
 
+  const downloadImage = () => {
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'image.png';
+    // For Firefox you need to add it to the DOM before click in some cases:
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+  // Button function
+  <button onClick={downloadImage}>
+  Activate Lasers
+  </button>
+  
   return (
     <div className="flex items-center justify-center w-full h-full">
       <canvas id="imageCanvas"></canvas>
+      <Button variant="outline" onClick={downloadImage}>Download</Button>
     </div>
   )
+  
 }
