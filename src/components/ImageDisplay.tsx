@@ -51,7 +51,6 @@ export function ImageDisplay({ image }: { image: string | null }) {
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
     link.download = 'image.png';
-    // For Firefox you need to add it to the DOM before click in some cases:
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -60,11 +59,18 @@ export function ImageDisplay({ image }: { image: string | null }) {
   <button onClick={downloadImage}>
   Activate Lasers
   </button>
+  const convertImage = () => {
+    if (!canvas) return;
+  };
+  <button onClick={convertImage}>
+  Activate Lasers
+  </button>
   
   return (
     <div className="flex items-center justify-center w-full h-full">
       <canvas id="imageCanvas"></canvas>
       <Button variant="outline" onClick={downloadImage}>Download</Button>
+      <Button variant="outline" onClick={convertImage}>Convert</Button>
     </div>
   )
   
