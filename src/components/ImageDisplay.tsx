@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
-export function ImageDisplay({ image }: { image: string | null }) {
+import convertImage from '@/utils/convert';
+import type { ThemeName } from '@/constants/themes';
+
+export function ImageDisplay({image, theme}: {image: string | null, theme: ThemeName}) {
   const MAX_SCREEN_PERCENTAGE = 0.8;
   const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
   useEffect(() => {
@@ -57,22 +59,20 @@ export function ImageDisplay({ image }: { image: string | null }) {
     link.click();
     link.remove();
   };
-  // Button function
-  <button onClick={downloadImage}>
-  Activate Lasers
-  </button>
-  const convertImage = () => {
+  
+  const convertImageHandler = () => {
     if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    convertImage(canvas, ctx, theme, 0.8);
   };
-  <button onClick={convertImage}>
-  Activate Lasers
-  </button>
   
   return (
     <div className="flex items-center justify-center w-full h-full">
       <canvas id="imageCanvas"></canvas>
       <Button variant="outline" onClick={downloadImage}>Download</Button>
-      <Button variant="outline" onClick={convertImage}>Convert</Button>
+      <Button variant="outline" onClick={convertImageHandler}>Convert</Button>
       <Slider defaultValue={[33]} max={100} step={1} />
     </div>
   )

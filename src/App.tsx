@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <ImageDropper onFileChange={handleFileChange} />
-      <ImageDisplay image={image} />
+      <ImageDisplay image={image} theme={theme} />
       <ThemePicker onThemeChange={handleThemeChange} />
       <ColorPalette themeName={theme} />
     </>
