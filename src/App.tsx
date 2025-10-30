@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useCallback } from 'react';
+import { ImageDropper } from './components/ImageDropper'
 import './App.css'
+import { ImageDisplay } from './components/ImageDisplay';
+import { ThemePicker } from './components/ThemePicker';
+import { ColorPalette } from './components/ColorPalette';
+import type { ThemeName } from '@/constants/themes';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [image, setImage] = useState<string | null>(null);
+  const [theme, setTheme] = useState<ThemeName>('catMocha');
+
+  const handleFileChange = useCallback((imageData: string) => {
+    setImage(imageData);
+  }, []);
+
+  const handleThemeChange = useCallback((themeName: ThemeName) => {
+    setTheme(themeName);
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ImageDropper onFileChange={handleFileChange} />
+      <ImageDisplay image={image} theme={theme} />
+      <ThemePicker onThemeChange={handleThemeChange} />
+      <ColorPalette themeName={theme} />
     </>
   )
 }
