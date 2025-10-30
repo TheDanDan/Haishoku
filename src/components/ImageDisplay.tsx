@@ -9,7 +9,6 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
   const [conversionRate, setConversionRate] = useState<number>(.80);
   const [resetImage, setResetImage] = useState<number>(0);
 
-  const MAX_SCREEN_PERCENTAGE = 0.8;
   const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
   useEffect(() => {
     const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
@@ -20,39 +19,20 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
       img.src = image;
       img.onload = () => {
         if (ctx) {
-          const displayWidth = window.innerWidth;
-          const displayHeight = window.innerHeight;
-
           const imageWidth = img.naturalWidth;
           const imageHeight = img.naturalHeight;
 
-          const maxDrawWidth = displayWidth * MAX_SCREEN_PERCENTAGE;
-          const maxDrawHeight = displayHeight * MAX_SCREEN_PERCENTAGE;
+          // 1. Set the canvas element dimensions to the ORIGINAL image dimensions
+          canvas.width = imageWidth;
+          canvas.height = imageHeight;
 
-          let drawWidth, drawHeight;
-          let scale;
-
-          if (imageWidth <= maxDrawWidth && imageHeight <= maxDrawHeight) {
-            drawWidth = imageWidth;
-            drawHeight = imageHeight;
-          } else {
-            const widthRatio = maxDrawWidth / imageWidth;
-            const heightRatio = maxDrawHeight / imageHeight;
-
-            scale = Math.min(widthRatio, heightRatio);
-
-            drawWidth = imageWidth * scale;
-            drawHeight = imageHeight * scale;
-          }
-          canvas.width = drawWidth;
-          canvas.height = drawHeight
-
-          ctx.clearRect(0, 0, drawWidth, drawHeight);
-          ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
+          // 2. Draw the image onto the canvas at its full size (1:1 mapping)
+          ctx.clearRect(0, 0, imageWidth, imageHeight);
+          ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
         }
       };
     }
-  }, [image, resetImage]);
+}, [image, resetImage]);
 
   const downloadImage = () => {
     if (!canvas) return;
@@ -78,7 +58,9 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
   
   return (
     <div className="items-center justify-center w-full h-full">
-      <canvas id="imageCanvas"></canvas>
+      <div style={{ maxWidth: '80vw', maxHeight: '80vh'}}>
+        <canvas id="imageCanvas" style={{ maxWidth: '100%', maxHeight: '100%' }}></canvas>
+      </div>
       <div className="flex gap-4 mt-4 justify-center">
         <Button variant="outline" onClick={downloadImage}>Download</Button>
         <Button variant="outline" onClick={convertImageHandler}>Convert</Button>
