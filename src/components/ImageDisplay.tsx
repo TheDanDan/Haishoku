@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
 import convertImage from '@/utils/convert';
 import type { ThemeName } from '@/constants/themes';
 import { Label } from '@radix-ui/react-label';
@@ -8,6 +9,7 @@ import { Label } from '@radix-ui/react-label';
 export function ImageDisplay({image, theme}: {image: string | null, theme: ThemeName}) {
   const [conversionRate, setConversionRate] = useState<number>(.80);
   const [resetImage, setResetImage] = useState<number>(0);
+  const [useOkLab, setUseOkLab] = useState<boolean>(false);
 
   const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
   useEffect(() => {
@@ -49,19 +51,21 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    convertImage(canvas, ctx, theme, conversionRate);
+    convertImage(canvas, ctx, theme, conversionRate, useOkLab);
   };
 
   const resetImageHandler = () => {
     setResetImage(prev => prev + 1);
-  }
-  
+  };
+
   return (
     <div className="items-center justify-center w-full h-full">
       <div style={{ maxWidth: '80vw', maxHeight: '80vh'}}>
         <canvas id="imageCanvas" style={{ maxWidth: '100%', maxHeight: '100%' }}></canvas>
       </div>
       <div className="flex gap-4 mt-4 justify-center">
+        <Switch id="ok-lab-switch" onCheckedChange={setUseOkLab} />
+        <Label htmlFor="ok-lab-switch">OK-Lab</Label>
         <Button variant="outline" onClick={downloadImage}>Download</Button>
         <Button variant="outline" onClick={convertImageHandler}>Convert</Button>
         <Button variant="outline" onClick={resetImageHandler}>Reset</Button>
