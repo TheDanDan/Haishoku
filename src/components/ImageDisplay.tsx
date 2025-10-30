@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { Slider } from "@/components/ui/slider"
 export function ImageDisplay({ image }: { image: string | null }) {
   const MAX_SCREEN_PERCENTAGE = 0.8;
   const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
@@ -71,6 +73,7 @@ export function ImageDisplay({ image }: { image: string | null }) {
       <canvas id="imageCanvas"></canvas>
       <Button variant="outline" onClick={downloadImage}>Download</Button>
       <Button variant="outline" onClick={convertImage}>Convert</Button>
+      <Slider defaultValue={[33]} max={100} step={1} />
     </div>
   )
   
