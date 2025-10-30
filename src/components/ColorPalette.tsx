@@ -4,10 +4,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { THEMES, type ThemeName } from "@/constants/Themes";
+import { Input } from "@/components/ui/input"
+import { THEMESHEX, type ThemeName } from "@/constants/themes";
 
 export function ColorPalette({themeName}: {themeName: ThemeName}) {
-  const colors = THEMES[themeName];
+  const colors = THEMESHEX[themeName];
 
   return (
     <div className="flex items-center justify-center w-full h-full">
@@ -17,11 +18,10 @@ export function ColorPalette({themeName}: {themeName: ThemeName}) {
                 <CardTitle>Color Palette</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-12 gap-2">
                     {colors.map((color, index) => (
                         <div key={index} className="flex items-center">
-                            <div className="w-4 h-4" style={{ backgroundColor: color }} />
-                            <span className="ml-2">{color}</span>
+                            <Input type="color" className="w-4 h-4" style={{ backgroundColor: color }} value={color} readOnly />
                         </div>
                     ))}
                 </div>

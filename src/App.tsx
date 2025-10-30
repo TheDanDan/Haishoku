@@ -4,7 +4,7 @@ import './App.css'
 import { ImageDisplay } from './components/ImageDisplay';
 import { ThemePicker } from './components/ThemePicker';
 import { ColorPalette } from './components/ColorPalette';
-import type { ThemeName } from '@/constants/Themes';
+import type { ThemeName } from '@/constants/themes';
 
 function App() {
   const [image, setImage] = useState<string | null>(null);

@@ -5,8 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-import type { ThemeName } from "@/constants/Themes";
+import type { ThemeName } from '@/constants/themes';
 
 export function ThemePicker({ onThemeChange }: { onThemeChange: (themeName: ThemeName) => void }) {
   const applyTheme = (themeName: ThemeName) => {

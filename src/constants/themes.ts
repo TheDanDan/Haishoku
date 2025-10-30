@@ -1,5 +1,97 @@
-export const THEMES = {
-  "catMocha": [
+export const THEMESRGB = {
+  catMocha: [
+    [245, 224, 220], // Rosewater
+    [242, 205, 205], // Flamingo
+    [245, 194, 231], // Pink
+    [203, 166, 247], // Mauve
+    [243, 139, 168], // Red
+    [235, 160, 172], // Maroon
+    [250, 179, 135], // Peach
+    [249, 226, 175], // Yellow
+    [166, 227, 161], // Green
+    [148, 226, 213], // Teal
+    [137, 220, 235], // Sky
+    [116, 199, 236], // Sapphire
+    [137, 180, 250], // Blue
+    [180, 190, 254], // Lavender
+    [205, 214, 244], // Text
+    [186, 194, 222], // Subtext1
+    [166, 173, 200], // Subtext0
+    [147, 153, 178], // Overlay2
+    [127, 132, 156], // Overlay1
+    [108, 112, 134], // Overlay0
+    [88, 91, 112],   // Surface2
+    [69, 71, 90],    // Surface1
+    [49, 50, 68],    // Surface0
+    [30, 30, 46],    // Base
+    [24, 24, 37],    // Mantle
+    [17, 17, 27]     // Crust
+  ],
+  catLatte: [
+    [220, 138, 120], // Rosewater
+    [221, 120, 120], // Flamingo
+    [234, 118, 203], // Pink
+    [136, 57, 239],  // Mauve
+    [210, 15, 57],   // Red
+    [230, 69, 83],   // Maroon
+    [254, 100, 11],  // Peach
+    [223, 142, 29],  // Yellow
+    [64, 160, 43],   // Green
+    [23, 146, 153],  // Teal
+    [4, 165, 229],   // Sky
+    [32, 159, 181],  // Sapphire
+    [30, 102, 245],  // Blue
+    [114, 135, 253], // Lavender
+    [76, 79, 105],   // Text
+    [92, 95, 119],   // Subtext1
+    [108, 111, 133], // Subtext0
+    [124, 127, 147], // Overlay2
+    [140, 143, 161], // Overlay1
+    [156, 160, 176], // Overlay0
+    [172, 176, 190], // Surface2
+    [188, 192, 204], // Surface1
+    [204, 208, 218], // Surface0
+    [239, 241, 245], // Base
+    [230, 233, 239], // Mantle
+    [220, 224, 232]  // Crust
+  ],
+  gruvBox: [
+    [40, 40, 40],      // bg
+    [204, 36, 29],     // red
+    [152, 151, 26],    // green
+    [215, 153, 33],    // yellow
+    [69, 133, 136],    // blue
+    [177, 98, 134],    // purple
+    [104, 157, 106],   // aqua
+    [168, 153, 132],   // gray
+    [146, 131, 116],   // gray (darker)
+    [251, 73, 52],     // red (brighter)
+    [184, 187, 38],    // green (brighter)
+    [250, 189, 47],    // yellow (brighter)
+    [131, 165, 152],   // blue (brighter)
+    [211, 134, 155],   // purple (brighter)
+    [142, 192, 124],   // aqua (brighter)
+    [235, 219, 178],   // fg (foreground)
+    [29, 32, 33],      // bg0_h
+    [40, 40, 40],      // bg0
+    [60, 56, 54],      // bg1
+    [80, 73, 69],      // bg2
+    [102, 92, 84],     // bg3
+    [124, 111, 100],   // bg4
+    [146, 131, 116],   // gray (again)
+    [214, 93, 14],     // orange
+    [50, 48, 63],      // bg0_s
+    [169, 155, 164],   // fg4
+    [189, 174, 147],   // fg3
+    [213, 196, 161],   // fg2
+    [235, 219, 178],   // fg1
+    [251, 241, 199],   // fg0
+    [254, 128, 25]     // orange (brighter)
+  ]
+};
+
+export const THEMESHEX = {
+  catMocha: [
     "#f5e0dc",  // Rosewater
     "#f2cdcd",  // Flamingo
     "#f5c2e7",  // Pink
@@ -27,7 +119,7 @@ export const THEMES = {
     "#181825",  // Mantle
     "#11111b",  // Crust
   ],
-  "catLatte": [
+  catLatte: [
     "#dc8a78",
     "#dd7878",
     "#ea76cb",
@@ -55,7 +147,7 @@ export const THEMES = {
     "#e6e9ef",
     "#dce0e8"
   ],
-  "gruvBox": [
+  gruvBox: [
     "#282828",
     "#cc241d",
     "#98971a",
@@ -88,6 +180,6 @@ export const THEMES = {
     "#fbf1c7",
     "#fe8019"
   ]
-};
+}
 
-export type ThemeName = keyof typeof THEMES;
+export type ThemeName = keyof typeof THEMESRGB;
