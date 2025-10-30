@@ -4,7 +4,7 @@ export default function convertImage(
     canvas: HTMLCanvasElement, 
     ctx: CanvasRenderingContext2D, 
     theme: ThemeName,
-    conversionRate: number = .80
+    conversionRate: number = .6
 ) {
     const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const imageData = image.data;
@@ -22,9 +22,9 @@ export default function convertImage(
                 let oldPixel = [imageData[index], imageData[index + 1], imageData[index + 2]];
                 let newPixel = nearestColour(oldPixel, themeColours);
 
-                imageData[index] = Math.abs(newPixel[0] - oldPixel[0]) * conversionRate + oldPixel[0];
-                imageData[index + 1] = Math.abs(newPixel[1] - oldPixel[1]) * conversionRate + oldPixel[1];
-                imageData[index + 2] = Math.abs(newPixel[2] - oldPixel[2]) * conversionRate + oldPixel[2];
+                imageData[index] = (newPixel[0] - oldPixel[0]) * conversionRate + oldPixel[0];
+                imageData[index + 1] = (newPixel[1] - oldPixel[1]) * conversionRate + oldPixel[1];
+                imageData[index + 2] = (newPixel[2] - oldPixel[2]) * conversionRate + oldPixel[2];
             }
         }
         ctx.putImageData(image, 0, 0);

@@ -1,10 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import convertImage from '@/utils/convert';
 import type { ThemeName } from '@/constants/themes';
+import { Label } from '@radix-ui/react-label';
 
 export function ImageDisplay({image, theme}: {image: string | null, theme: ThemeName}) {
+  const [conversionRate, setConversionRate] = useState<number>(.80);
+  const [resetImage, setResetImage] = useState<number>(0);
+
   const MAX_SCREEN_PERCENTAGE = 0.8;
   const canvas = document.getElementById('imageCanvas') as HTMLCanvasElement;
   useEffect(() => {
@@ -48,7 +52,7 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
         }
       };
     }
-  }, [image]);
+  }, [image, resetImage]);
 
   const downloadImage = () => {
     if (!canvas) return;
@@ -59,21 +63,29 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
     link.click();
     link.remove();
   };
-  
+
   const convertImageHandler = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    convertImage(canvas, ctx, theme, 0.8);
+    convertImage(canvas, ctx, theme, conversionRate);
   };
+
+  const resetImageHandler = () => {
+    setResetImage(prev => prev + 1);
+  }
   
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="items-center justify-center w-full h-full">
       <canvas id="imageCanvas"></canvas>
-      <Button variant="outline" onClick={downloadImage}>Download</Button>
-      <Button variant="outline" onClick={convertImageHandler}>Convert</Button>
-      <Slider defaultValue={[33]} max={100} step={1} />
+      <div className="flex gap-4 mt-4 justify-center">
+        <Button variant="outline" onClick={downloadImage}>Download</Button>
+        <Button variant="outline" onClick={convertImageHandler}>Convert</Button>
+        <Button variant="outline" onClick={resetImageHandler}>Reset</Button>
+        <Slider defaultValue={[33]} max={100} step={1} value={[conversionRate * 100]} onValueChange={([value]) => setConversionRate(value / 100)} />
+        <Label>{conversionRate}%</Label>
+      </div>
     </div>
   )
   
