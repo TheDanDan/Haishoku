@@ -59,9 +59,9 @@ export function ImageDisplay({image, theme}: {image: string | null, theme: Theme
   };
 
   return (
-    <div className="items-center justify-center w-full h-full">
-      <div style={{ maxWidth: '80vw', maxHeight: '80vh'}}>
-        <canvas id="imageCanvas" style={{ maxWidth: '100%', maxHeight: '100%' }}></canvas>
+    <div className="items-center justify-center">
+      <div className="flex items-center justify-center">
+        <canvas id="imageCanvas" style={{ maxWidth: '70vw', maxHeight: '80vh' }}></canvas>
       </div>
       <div className="flex gap-4 mt-4 justify-center">
         <Switch id="ok-lab-switch" onCheckedChange={setUseOkLab} />

@@ -24,7 +24,7 @@ export default function convertImage(
                 let oldPixel = [imageData[index], imageData[index + 1], imageData[index + 2]];
 
                 if (useOkLab) {
-                    let newPixel = nearestColourOkLab(oldPixel, themeColours);
+                    let {closestColor: newPixel, secondClosestColor, difference} = nearestColourOkLab(oldPixel, themeColours);
                     let oldLab = convert.rgb.lab(oldPixel[0], oldPixel[1], oldPixel[2]);
                     let newLab = convert.rgb.lab(newPixel[0], newPixel[1], newPixel[2]);
 
@@ -33,6 +33,11 @@ export default function convertImage(
                         newLab[1] - oldLab[1],
                         newLab[2] - oldLab[2]
                     ];
+
+                    if (difference < 5) {
+                        newPixel = secondClosestColor;
+                        newLab = convert.rgb.lab(newPixel[0], newPixel[1], newPixel[2]);
+                    }
 
                     let blendedLab = [
                         oldLab[0] + labDelta[0] * conversionRate,
@@ -65,6 +70,7 @@ function nearestColourOkLab(targetColour: number[], colourScheme: number[][]) {
     let minDistance = Infinity;
     let closestColor = colourScheme[0];
     let secondClosestColor = colourScheme[0];
+    let difference = 0;
     let targetLab = convert.rgb.lab(targetColour[0], targetColour[1], targetColour[2]);
 
     for (let i = 0; i < colourScheme.length; i += 3) {
@@ -76,12 +82,13 @@ function nearestColourOkLab(targetColour: number[], colourScheme: number[][]) {
                 Math.pow(targetLab[2] - colorLab[2], 2)
         );
         if (distance < minDistance) {
+            difference = minDistance - distance;
             minDistance = distance;
             secondClosestColor = closestColor;
             closestColor = color;
         }
     }
-    return [closestColor, secondClosestColor, minDistance];
+    return {closestColor, secondClosestColor, difference};
 }
 
 function nearestColour(targetColour: number[], colourScheme: number[][]) {

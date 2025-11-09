@@ -5,6 +5,8 @@ import { ImageDisplay } from './components/ImageDisplay';
 import { ThemePicker } from './components/ThemePicker';
 import { ColorPalette } from './components/ColorPalette';
 import type { ThemeName } from '@/constants/themes';
+import { ThemeProvider } from "@/components/theme-provider"
+import { Header } from './components/Header';
 
 function App() {
   const [image, setImage] = useState<string | null>(null);
@@ -19,12 +21,13 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
+      <Header />
       <ImageDropper onFileChange={handleFileChange} />
       <ImageDisplay image={image} theme={theme} />
       <ThemePicker onThemeChange={handleThemeChange} />
       <ColorPalette themeName={theme} />
-    </>
+    </ThemeProvider>
   )
 }
 
