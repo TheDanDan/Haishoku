@@ -16,7 +16,7 @@ Haishoku is a tool that takes any image and converts it to use a specific color 
 - **🎨 Multiple Color Themes**: Choose from popular color schemes including:
   - Catppuccin Mocha (dark theme with pastel colors)
   - Catppuccin Latte (light theme variant)
-  - GruvBox (retro warm color scheme)
+  - Gruvbox (retro warm color scheme)
 
 - **🎚️ Adjustable Conversion Rate**: Control how much of the original color is replaced with theme colors (0-100%)
 
@@ -34,7 +34,7 @@ Haishoku is a tool that takes any image and converts it to use a specific color 
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS 4
 - **UI Components**: Radix UI primitives
-- **Color Palettes**: Catppuccin and GruvBox themes
+- **Color Palettes**: Catppuccin and Gruvbox themes
 
 ## How It Works
 
@@ -115,4 +115,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Color schemes from [Catppuccin](https://github.com/catppuccin/catppuccin) and [GruvBox](https://github.com/morhetz/gruvbox)
+- Color schemes from [Catppuccin](https://github.com/catppuccin/catppuccin) and [Gruvbox](https://github.com/morhetz/gruvbox)
