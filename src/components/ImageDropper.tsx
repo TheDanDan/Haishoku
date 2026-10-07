@@ -1,7 +1,4 @@
-import { Input } from "@/components/ui/input"
 import { FileUpload } from "@/components/ui/file-upload";
-import { Label } from "@/components/ui/label"
-import { type ChangeEvent } from 'react';
 
 export function ImageDropper({ onFileChange }: { onFileChange: (imageData: string) => void }) {
   const handleFileChange = (file: File | null) => {

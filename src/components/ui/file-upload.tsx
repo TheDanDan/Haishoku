@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
@@ -35,7 +35,7 @@ export const FileUpload = ({
 
   const handleFileChange = (newFile: File | null) => {
     setFile(newFile);
-    onChange && onChange(newFile);
+    onChange?.(newFile);
   };
 
   const handleClick = () => {
